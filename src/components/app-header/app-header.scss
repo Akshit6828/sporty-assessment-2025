@@ -1,0 +1,28 @@
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  font-family: Arial, sans-serif;
+  z-index: 999;
+
+  .header-container {
+    background: linear-gradient(135deg, var(--primary), #cf7676);
+    height: 56px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+
+    .logo {
+      color: var(--white);
+      font-weight: 900;
+      font-size: larger;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    }
+  }
+}

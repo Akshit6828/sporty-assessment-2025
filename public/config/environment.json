@@ -1,0 +1,6 @@
+{
+  "App_Name": "Sporty-League",
+  "App_Description": "A platform for managing sports leagues and tournaments.",
+  "App_Version": "1.0.0",
+  "apiBaseUrl": "https://www.thesportsdb.com"
+}

@@ -1,0 +1,23 @@
+.custom-search {
+  font-size: 14px;
+  border-radius: 6px;
+  outline: none;
+  padding: 10px 12px;
+  border: 1px solid var(--secondary);
+  background: var(--white);
+  color: var(--black);
+
+  &::placeholder {
+    color: var(--secondary);
+  }
+
+  &:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 4px rgba(228, 28, 35, 0.3);
+  }
+
+  &:focus {
+    border-color: var(--primary);
+    box-shadow: var(--box-shadow-red);
+  }
+}
