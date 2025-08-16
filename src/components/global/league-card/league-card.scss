@@ -3,14 +3,11 @@
   text-align: center;
   justify-content: space-between;
   gap: 8px;
-
   border-radius: 10px;
   padding: 16px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
   border-left: 4px solid var(--primary);
-
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-
   .league-details {
     display: flex;
     justify-content: flex-start;
@@ -24,13 +21,11 @@
       color: var(--black);
       min-width: 70%;
     }
-
     .alt-name {
       font-size: 12px;
       color: var(--secondary);
     }
   }
-
   .sport {
     display: flex;
     justify-content: flex-end;
@@ -40,7 +35,6 @@
     min-width: 30%;
     text-align: right;
   }
-
   &:hover {
     transform: translateY(-4px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);

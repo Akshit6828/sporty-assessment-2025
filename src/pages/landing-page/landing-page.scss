@@ -25,6 +25,7 @@
   }
 
   .league-card {
+    cursor: pointer;
     flex: 1 1 calc(33.333% - 20px); // 3 per row, accounting for gap
   }
 

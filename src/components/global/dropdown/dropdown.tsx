@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import "./dropdown.scss";
 
-interface DropdownOption {
+export interface DropdownOption {
   label: any;
   value: any;
 }
-interface DropdownProps {
+export interface DropdownProps {
   options: DropdownOption[];
   value: DropdownOption;
   onChange: (item: DropdownOption) => void;
@@ -22,6 +22,7 @@ export default function Dropdown({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [dropdownValue, setDropdownValue] = useState(value);
   const [search, setSearch] = useState("");
+
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const searchRef = useRef<HTMLInputElement | null>(null);
 
@@ -61,7 +62,7 @@ export default function Dropdown({
     }
 
     return options;
-  }, [search]);
+  }, [search, options]);
 
   const dropdownValueText = useMemo(() => {
     return searchRef.current === document.activeElement

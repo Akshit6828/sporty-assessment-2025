@@ -7,8 +7,4 @@ const LazyLandingPage = React.lazy(
   () => import("../pages/landing-page/landing-page")
 );
 
-const LazyViewLeaguePage = React.lazy(
-  () => import("../pages/view-league/view-league")
-);
-
-export { LazyLandingLayout, LazyLandingPage, LazyViewLeaguePage };
+export { LazyLandingLayout, LazyLandingPage };

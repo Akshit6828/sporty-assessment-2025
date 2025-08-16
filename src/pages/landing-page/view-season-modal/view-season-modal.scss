@@ -1,0 +1,77 @@
+.modal {
+  &.season-modal-container {
+    border: 1px solid var(--primary);
+    padding: 0px;
+    display: flex;
+  }
+}
+
+.season-modal {
+  .season-details-container {
+    padding: 16px;
+    .league-details {
+      display: flex;
+      justify-content: space-between;
+      align-content: center;
+      width: 100%;
+
+      .league-name {
+        text-align: left;
+        margin: 0 0 8px 0;
+        font-size: 16px;
+        color: var(--black);
+      }
+
+      .sport-name {
+        font-size: 14px;
+        color: var(--primary);
+        font-weight: 500;
+        text-align: right;
+      }
+    }
+
+    .season-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+
+      .league-alt-name {
+        font-size: 12px;
+        color: var(--secondary);
+      }
+      .season-name {
+        font-size: 14px;
+        color: var(--black);
+        text-align: right;
+      }
+    }
+  }
+
+  .season-img {
+    width: 100%;
+    border-bottom: 1px solid var(--primary);
+  }
+
+  .modal-close-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 14px;
+    padding: 0 14px;
+
+    .modal-close-button {
+      background: var(--primary);
+      color: var(--white);
+      padding: 4px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--primary);
+      cursor: pointer;
+      width: 100%;
+    }
+    .modal-close-button:hover {
+      background-color: var(--primary-80);
+      border: 1px solid var(--primary-80);
+    }
+  }
+}

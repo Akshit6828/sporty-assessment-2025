@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react";
 import LeagueCard from "../../components/global/league-card/league-card";
-import { fetchAllLeagues } from "../../services/main-service";
+import {
+  fetchAllLeagues,
+  fetchAllSeasonByLeagueId,
+} from "../../services/main-service";
 import "./landing-page.scss";
 import Search from "../../components/global/search/search";
-import Dropdown from "../../components/global/dropdown/dropdown";
-import { useNavigate } from "react-router-dom";
+import Dropdown, {
+  type DropdownOption,
+} from "../../components/global/dropdown/dropdown";
 import NoData from "../../components/global/no-data/no-data";
+import ViewSeasonModal from "./view-season-modal/view-season-modal";
+import Loader from "../../components/global/loader/loader";
+import { tr } from "framer-motion/client";
 interface League {
   idLeague: string;
   strLeague: string;
@@ -15,14 +22,18 @@ interface League {
 
 export default function LandingPage() {
   const [allLeagues, setAllLeagues] = useState<League[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [searchText, setSearchText] = useState("");
-  const [selectedSport, setSelectedSport] = useState({
+  const [dropdownData, setDropdownData] = useState<DropdownOption[]>([]);
+  const [selectedSport, setSelectedSport] = useState<DropdownOption>({
     label: "",
     value: "",
   });
+  const [searchText, setSearchText] = useState<string>("");
 
-  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingSeasons, setIsLoadingSeasons] = useState<boolean>(true);
+  const [seasonDetails, setSeasonDetails] = useState<any>(null);
+
+  const [showSeasonModal, setShowSeasonModal] = useState<boolean>(false);
 
   useEffect(() => {
     getAllLeagues();
@@ -32,12 +43,29 @@ export default function LandingPage() {
     try {
       setIsLoading(true);
       const data = await fetchAllLeagues();
+
       setAllLeagues(data.leagues || []);
+      setDropdownData(getUniqueSports(data.leagues));
     } catch (error) {
       console.error("Error fetching leagues:", error);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const getUniqueSports = (allLeagues: any): DropdownOption[] => {
+    let sportsSet = new Set();
+
+    allLeagues.forEach((league: any) => {
+      sportsSet.add(league.strSport);
+    });
+
+    return [...sportsSet].map((item: any) => {
+      return {
+        label: item,
+        value: item.toLowerCase(),
+      };
+    });
   };
 
   const onSearchChange = (searchText: string) => {
@@ -56,13 +84,27 @@ export default function LandingPage() {
     setSelectedSport(selected);
   };
 
-  const onLeagueCardClick = (league: any) => {
-    navigate(`/view-league/${league.idLeague}`, {
-      state: {
-        name: league.strLeague,
-      },
-    });
+  const onLeagueCardClick = async (league: any) => {
+    setShowSeasonModal(true);
+    try {
+      setIsLoadingSeasons(true);
+
+      const res = await fetchAllSeasonByLeagueId(league?.idLeague);
+
+      setSeasonDetails({
+        ...league,
+        ...res?.seasons?.[res.seasons.length - 1],
+      });
+    } catch (error) {
+      console.error("Error fetching seasons:", error);
+    } finally {
+      setIsLoadingSeasons(false);
+    }
   };
+
+  console.log({
+    seasonDetails,
+  });
 
   return (
     <div className="landing-page">
@@ -75,33 +117,14 @@ export default function LandingPage() {
         />
         <Dropdown
           width="35%"
-          options={[
-            { label: "All", value: "All" },
-            {
-              label: "Football",
-              value: "Football",
-            },
-            {
-              label: "Basketball",
-              value: "Basketball",
-            },
-          ]}
+          options={dropdownData}
           onChange={onDropdownSelected}
           placeholder="Select Sport"
           value={selectedSport}
         />
       </div>
       <div className="all-leagues-container">
-        {isLoading && (
-          <div className="loading-container">
-            <img
-              className="loader-icon"
-              src="assets/icons/loader-icon.svg"
-              width={"64px"}
-              height={"64px"}
-            />
-          </div>
-        )}
+        {isLoading && <Loader />}
         {!isLoading &&
           (allLeagues.length > 0 ? (
             allLeagues?.map((league: any) => {
@@ -122,6 +145,18 @@ export default function LandingPage() {
             <NoData />
           ))}
       </div>
+      {showSeasonModal && (
+        <ViewSeasonModal
+          seasonImg={seasonDetails?.strBadge}
+          seasonName={seasonDetails?.strSeason}
+          leagueName={seasonDetails?.strLeague}
+          leagueAlternateName={seasonDetails?.strLeagueAlternate}
+          sportName={seasonDetails?.strSport}
+          isLoading={isLoadingSeasons}
+          showModal={showSeasonModal}
+          setShowModal={setShowSeasonModal}
+        />
+      )}
     </div>
   );
 }
