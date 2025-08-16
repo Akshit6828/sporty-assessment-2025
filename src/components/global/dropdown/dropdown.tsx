@@ -54,6 +54,13 @@ export default function Dropdown({
     setSearch(searchText);
   };
 
+  const onClearBtnClicked = () => {
+    onChange({ label: "", value: "" });
+    setDropdownValue({ label: "", value: "" });
+    setSearch("");
+    setIsDropdownOpen(false);
+  };
+
   const dropdownOptions = useMemo(() => {
     if (search) {
       return options.filter((item) =>
@@ -96,21 +103,26 @@ export default function Dropdown({
       />
 
       {isDropdownOpen && (
-        <div className="options-wrapper">
-          {dropdownOptions.map((item: DropdownOption) => {
-            return (
-              <div
-                key={item?.value}
-                className={`dropdown-item ${
-                  item?.value === dropdownValue?.value ? "active" : ""
-                }`}
-                onClick={() => onDropdownOptionClick(item)}
-              >
-                {item?.label || ""}
-              </div>
-            );
-          })}
-        </div>
+        <>
+          <div className="options-wrapper">
+            {dropdownOptions.map((item: DropdownOption) => {
+              return (
+                <div
+                  key={item?.value}
+                  className={`dropdown-item ${
+                    item?.value === dropdownValue?.value ? "active" : ""
+                  }`}
+                  onClick={() => onDropdownOptionClick(item)}
+                >
+                  {item?.label || ""}
+                </div>
+              );
+            })}
+            <button className="clear-button" onClick={onClearBtnClicked}>
+              Clear
+            </button>
+          </div>
+        </>
       )}
     </div>
   );

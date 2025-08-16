@@ -44,7 +44,6 @@
 
   .options-wrapper {
     position: absolute;
-    // border: 1px solid var(--grey-40);
     border-radius: 0px 0px 4px 4px;
     width: 100%;
     background-color: var(--white);
@@ -74,6 +73,17 @@
     }
     .dropdown-input:last-child {
       border-bottom: none;
+    }
+
+    .clear-button {
+      border: none;
+      background: none;
+      color: var(--primary);
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+      text-decoration: underline;
+      padding: 6px 12px 10px 12px;
     }
   }
 }

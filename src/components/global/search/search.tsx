@@ -30,7 +30,7 @@ export default function Search({
           alt="search-icon"
           width={"16px"}
           height={"16px"}
-        ></img>
+        />
       </span>
     </div>
   );
