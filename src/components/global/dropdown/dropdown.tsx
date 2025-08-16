@@ -21,7 +21,9 @@ export default function Dropdown({
 }: DropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [dropdownValue, setDropdownValue] = useState(value);
+  const [search, setSearch] = useState("");
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const searchRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
@@ -36,48 +38,61 @@ export default function Dropdown({
       !dropdownRef.current.contains(event.target as Node)
     ) {
       setIsDropdownOpen(false);
+      setSearch("");
     }
   };
 
-  const onDropdownSelected = (selected: DropdownOption) => {
+  const onDropdownOptionClick = (selected: DropdownOption) => {
     setIsDropdownOpen(!isDropdownOpen);
     onChange(selected);
     setDropdownValue(selected);
   };
 
-  const filterDropdownOptions = (e: any) => {
-    const searchText = e.target.value.toLowerCase();
-    setDropdownValue({ label: searchText, value: searchText.toLowerCase() });
+  const onDropdownInputChange = (e: any) => {
+    const searchText = e.target.value;
+    setSearch(searchText);
   };
 
   const dropdownOptions = useMemo(() => {
-    if (dropdownValue.label) {
+    if (search) {
       return options.filter((item) =>
-        item.label.toLowerCase().includes(dropdownValue.label.toLowerCase())
+        item.label.toLowerCase().includes(search.toLowerCase())
       );
     }
 
     return options;
-  }, [dropdownValue]);
+  }, [search]);
+
+  const dropdownValueText = useMemo(() => {
+    return searchRef.current === document.activeElement
+      ? search
+      : dropdownValue?.label || "";
+  }, [search, dropdownValue, searchRef.current, document.activeElement]);
 
   return (
     <div className="dropdown-container" ref={dropdownRef}>
       <input
+        name="dropdown-input"
         type="text"
         width={"100%"}
         placeholder={placeholder}
-        value={dropdownValue?.label || ""}
+        value={dropdownValueText}
         className={`dropdown-input`}
-        onChange={filterDropdownOptions}
+        onChange={onDropdownInputChange}
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+        ref={searchRef}
+        autoComplete="off"
       />
-      <span
+
+      <img
+        width={8}
+        height={8}
+        src="assets/icons/arrow-down.svg"
+        alt="arrow"
         className={`dropdown-arrow ${
           isDropdownOpen ? "arrow-up" : "arrow-down"
         }`}
-      >
-        {`>`}
-      </span>
+      />
 
       {isDropdownOpen && (
         <div className="options-wrapper">
@@ -86,9 +101,9 @@ export default function Dropdown({
               <div
                 key={item?.value}
                 className={`dropdown-item ${
-                  item?.value === value?.value ? "active" : ""
+                  item?.value === dropdownValue?.value ? "active" : ""
                 }`}
-                onClick={() => onDropdownSelected(item)}
+                onClick={() => onDropdownOptionClick(item)}
               >
                 {item?.label || ""}
               </div>

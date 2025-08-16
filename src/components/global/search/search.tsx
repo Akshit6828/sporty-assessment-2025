@@ -15,6 +15,7 @@ export default function Search({
 }: SearchProps) {
   return (
     <input
+      name="custom-search"
       className="custom-search"
       type="search"
       value={value}

@@ -62,8 +62,14 @@ export default function LandingPage() {
             width="35%"
             options={[
               { label: "All", value: "All" },
-              { label: "Football", value: "Football" },
-              { label: "Basketball", value: "Basketball" },
+              {
+                label: "Football",
+                value: "Football",
+              },
+              {
+                label: "Basketball",
+                value: "Basketball",
+              },
             ]}
             onChange={onDropdownSelected}
             placeholder="Select Sport"
@@ -75,6 +81,7 @@ export default function LandingPage() {
             allLeagues.map((league: any) => {
               return (
                 <LeagueCard
+                  key={league.idLeague}
                   league={{
                     idLeague: league.idLeague,
                     strLeague: league.strLeague,

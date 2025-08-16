@@ -28,17 +28,30 @@
 @media (max-width: 900px) {
   .landing-page {
     max-width: 100%;
-  }
-  .league-card {
-    flex: 1 1 calc(50% - 20px); // 2 columns on tablet
+
+    .landing-page-header {
+      flex-direction: column;
+      gap: 32px;
+      align-items: flex-start;
+
+      .custom-search {
+        width: 100%;
+      }
+      .dropdown-container {
+        width: 60%;
+      }
+    }
+    .league-card {
+      flex: 1 1 calc(100% - 20px); // 1 columns on tablet and lower devices
+    }
   }
 }
 
-@media (max-width: 600px) {
-  .landing-page {
-    max-width: 100%;
-  }
-  .league-card {
-    flex: 1 1 100%; // 1 column on mobile
-  }
-}
+// @media (max-width: 600px) {
+//   .landing-page {
+//     max-width: 100%;
+//   }
+//   .league-card {
+//     flex: 1 1 100%; // 1 column on mobile
+//   }
+// }
