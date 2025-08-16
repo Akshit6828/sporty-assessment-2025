@@ -2,3 +2,10 @@
 @use "../styles/global/colors.scss";
 
 // Global classes
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}

@@ -14,14 +14,24 @@ export default function Search({
   width = "100%",
 }: SearchProps) {
   return (
-    <input
-      name="custom-search"
-      className="custom-search"
-      type="search"
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      placeholder={placeholder}
-      width={width}
-    />
+    <div className="search-container">
+      <input
+        name="custom-search"
+        className="custom-search"
+        type="search"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        width={width}
+      />
+      <span className="search-icon">
+        <img
+          src="/assets/icons/search-icon.svg"
+          alt="search-icon"
+          width={"16px"}
+          height={"16px"}
+        ></img>
+      </span>
+    </div>
   );
 }
