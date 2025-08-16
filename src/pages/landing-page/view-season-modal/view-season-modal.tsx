@@ -32,22 +32,24 @@ export default function ViewSeasonModal({
     >
       {isLoading && <Loader />}
       {!isLoading && (
-        <div className="season-modal">
-          <img
-            className="season-img"
-            width={300}
-            height={300}
-            src={seasonImg}
-            alt="season-img"
-          />
-          <div className="season-details-container">
-            <div className="league-details">
-              <h3 className="league-name">{leagueName}</h3>
-              <span className="sport-name">{sportName} 🏅</span>
-            </div>
-            <div className="season-details">
-              <span className="league-alt-name">{leagueAlternateName}</span>
-              <span className="season-name">{seasonName}</span>
+        <div className="modal-body-container">
+          <div className="img-league-container">
+            <img
+              className="season-img"
+              width={300}
+              height={300}
+              src={seasonImg}
+              alt="season-img"
+            />
+            <div className="season-details-container">
+              <div className="league-details">
+                <h3 className="league-name">{leagueName}</h3>
+                <span className="sport-name">{sportName} 🏅</span>
+              </div>
+              <div className="season-details">
+                <span className="league-alt-name">{leagueAlternateName}</span>
+                <span className="season-name">{seasonName}</span>
+              </div>
             </div>
           </div>
           <div className="modal-close-container">
