@@ -1,4 +1,4 @@
-import { use, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import LeagueCard from "../../components/global/league-card/league-card";
 import {
   fetchAllLeagues,
@@ -21,6 +21,7 @@ interface League {
 }
 
 export default function LandingPage() {
+  // Data states
   const [allLeagues, setAllLeagues] = useState<League[]>([]);
   const [dropdownData, setDropdownData] = useState<DropdownOption[]>([]);
   const [selectedSport, setSelectedSport] = useState<DropdownOption>({
@@ -28,16 +29,17 @@ export default function LandingPage() {
     value: "",
   });
   const [searchText, setSearchText] = useState<string>("");
-
-  const [isLoading, setIsLoading] = useState(true);
-  const [isLoadingSeasons, setIsLoadingSeasons] = useState<boolean>(true);
   const [seasonDetails, setSeasonDetails] = useState<any>(null);
 
+  // UI helper states
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingSeasons, setIsLoadingSeasons] = useState<boolean>(true);
   const [showSeasonModal, setShowSeasonModal] = useState<boolean>(false);
 
-  // React query states for caching used in seasons api
+  // React query states for caching used only in seasons api to fetch and cache image
   const queryClient = useQueryClient();
 
+  // API Calls
   useEffect(() => {
     getAllLeagues();
   }, []);
@@ -53,60 +55,6 @@ export default function LandingPage() {
       console.error("Error fetching leagues:", error);
     } finally {
       setIsLoading(false);
-    }
-  };
-
-  const getUniqueSports = (allLeagues: any): DropdownOption[] => {
-    let sportsSet = new Set();
-
-    allLeagues.forEach((league: any) => {
-      sportsSet.add(league.strSport);
-    });
-
-    return [...sportsSet].map((item: any) => {
-      return {
-        label: item,
-        value: item.toLowerCase(),
-      };
-    });
-  };
-
-  const onSearchChange = (searchText: string) => {
-    setSearchText(searchText);
-    // if (searchText.length > 0) {
-    //   const filteredLeagues = allLeagues.filter((league) =>
-    //     league.strLeague.toLowerCase().includes(searchText.toLowerCase())
-    //   );
-    //   setAllLeagues(filteredLeagues);
-    // } else {
-    //   getAllLeagues();
-    // }
-  };
-
-  const onDropdownSelected = (selected: any) => {
-    setSelectedSport(selected);
-    // Filter leagues based on selected sport
-    // const filteredLeagues = allLeagues.filter(
-    //   (league) => league.strSport.toLowerCase() === selected.value
-    // );
-    // debugger;
-    // setAllLeagues(filteredLeagues);
-  };
-
-  const onLeagueCardClick = (league: any) => {
-    setShowSeasonModal(true);
-    // Check if the leagueid is avaible in the cache
-
-    const cachedData: { seasons: any[] } | null | undefined =
-      queryClient.getQueryData(["leagueSeasons", league.idLeague]);
-    if (cachedData) {
-      setSeasonDetails({
-        ...league,
-        ...cachedData.seasons[cachedData.seasons.length - 1],
-      });
-      setIsLoadingSeasons(false);
-    } else {
-      fetchLeagueSeasonByID(league); // Calling API to fetch in case
     }
   };
 
@@ -129,6 +77,71 @@ export default function LandingPage() {
     }
   };
 
+  // Event handlers
+  const onSearchChange = (searchText: string) => {
+    setSearchText(searchText);
+  };
+
+  const onDropdownSelected = (selected: any) => {
+    setSelectedSport(selected);
+  };
+  const onLeagueCardClick = (league: any) => {
+    setShowSeasonModal(true);
+    // Check if the leagueid is avaible in the cache
+
+    const cachedData: { seasons: any[] } | null | undefined =
+      queryClient.getQueryData(["leagueSeasons", league.idLeague]);
+    if (cachedData) {
+      setSeasonDetails({
+        ...league,
+        ...cachedData.seasons[cachedData.seasons.length - 1],
+      });
+      setIsLoadingSeasons(false);
+    } else {
+      fetchLeagueSeasonByID(league); // Calling API to fetch in case
+    }
+  };
+
+  // Util Helper functions
+  const getUniqueSports = (allLeagues: any): DropdownOption[] => {
+    let sportsSet = new Set();
+
+    allLeagues.forEach((league: any) => {
+      sportsSet.add(league.strSport);
+    });
+
+    return [...sportsSet].map((item: any) => {
+      return {
+        label: item,
+        value: item.toLowerCase(),
+      };
+    });
+  };
+
+  const filterLeaguesBySearchAndSport = useMemo(
+    () => (league: any) => {
+      return (
+        league.strLeague.toLowerCase().includes(searchText.toLowerCase()) &&
+        league.strSport.toLowerCase() === selectedSport.value
+      );
+    },
+    [searchText, selectedSport.value]
+  );
+
+  const filterLeaguesBySearch = useMemo(
+    () => (league: any) => {
+      return league.strLeague.toLowerCase().includes(searchText.toLowerCase());
+    },
+    [searchText]
+  );
+
+  const filterLeaguesBySport = useMemo(
+    () => (league: any) => {
+      return league.strSport.toLowerCase() === selectedSport.value;
+    },
+    [selectedSport.value]
+  );
+
   const filteredLeagues = useMemo(() => {
     if (!searchText && !selectedSport.value) {
       return allLeagues;
@@ -136,25 +149,20 @@ export default function LandingPage() {
 
     let arr = allLeagues.filter((league) => {
       if (searchText && selectedSport.value) {
-        return (
-          league.strLeague.toLowerCase().includes(searchText.toLowerCase()) &&
-          league.strSport.toLowerCase() === selectedSport.value
-        );
+        return filterLeaguesBySearchAndSport(league);
       }
 
       if (searchText) {
-        return league.strLeague
-          .toLowerCase()
-          .includes(searchText.toLowerCase());
+        return filterLeaguesBySearch(league);
       }
 
       if (selectedSport.value) {
-        return league.strSport.toLowerCase() === selectedSport.value;
+        return filterLeaguesBySport(league);
       }
     });
-    debugger;
     return arr;
   }, [selectedSport.value, searchText, allLeagues]);
+
   return (
     <div className="landing-page">
       <div className="landing-page-header">
