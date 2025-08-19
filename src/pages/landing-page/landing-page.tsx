@@ -3,7 +3,7 @@ import LeagueCard from "../../components/global/league-card/league-card";
 import {
   fetchAllLeagues,
   fetchAllSeasonByLeagueId,
-} from "../../services/main-service";
+} from "../../services/landing-page-service";
 import "./landing-page.scss";
 import Search from "../../components/global/search/search";
 import Dropdown, {

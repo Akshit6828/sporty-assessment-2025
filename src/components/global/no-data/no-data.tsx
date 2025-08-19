@@ -8,6 +8,7 @@ export default function NoData() {
         height={"250px"}
         width={"250px"}
         alt="no-data-image"
+        aria-label="no-data-image"
       />
       <span className="np-data-text">Opps! No Data Found</span>
     </div>

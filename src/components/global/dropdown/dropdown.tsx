@@ -96,6 +96,7 @@ export default function Dropdown({
         width={8}
         height={8}
         src="assets/icons/arrow-down.svg"
+        aria-label="dropdown-arrow"
         alt="arrow"
         className={`dropdown-arrow ${
           isDropdownOpen ? "arrow-up" : "arrow-down"
