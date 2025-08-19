@@ -101,10 +101,10 @@
 }
 
 .zoom-in {
-  animation: zoomIn 0.2s ease-out;
+  animation: zoomIn 0.3s ease-out;
 }
 .season-modal-container {
-  animation: zoomIn 0.2s ease-out;
+  animation: zoomIn 0.3s ease-out;
   transform-origin: center center; // makes it zoom from middle
 
   .modal-body-container {
@@ -120,7 +120,7 @@
   .modal {
     &.season-modal-container {
       margin: 0px 12px;
-      min-width: 0px;
+      min-width: 70%;
       .modal-body-container {
         padding: 0px 12px;
         .img-league-container {
@@ -132,7 +132,7 @@
       }
       .modal-close-container {
         .modal-close-button {
-          min-height: 40px;
+          height: 40px;
         }
       }
     }
