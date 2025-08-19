@@ -21,7 +21,7 @@ A React + TypeScript web app to explore sports leagues and tournaments using the
 ## Setup
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/Akshit6828/sporty-assessment-2025.git
 cd sporty-assessment-2025
 npm install
 npm run dev
