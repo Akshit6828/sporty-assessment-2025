@@ -27,7 +27,7 @@ npm install
 npm run dev
 ```
 
-## Project Screenshort:
+## Project Screenshots:
 
 ### Landing Page(Desktop):
 
@@ -37,7 +37,7 @@ npm run dev
 
 <img width="195" height="423" alt="Landing Page Mobile" src="https://github.com/user-attachments/assets/df424ea1-c588-43f8-829b-3c7b2daf4937" />
 
-### Other Screenshorts for Functionality:
+### Other Screenshots for Functionality:
 
 <img width="1916" height="958" alt="Landing Page" src="https://github.com/user-attachments/assets/0ff8bdd1-2edd-4278-a6be-96420bcec538" />
 
