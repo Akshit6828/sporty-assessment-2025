@@ -86,3 +86,31 @@
     }
   }
 }
+
+// Animations css
+@keyframes zoomIn {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.zoom-in {
+  animation: zoomIn 0.2s ease-out;
+}
+.season-modal-container {
+  animation: zoomIn 0.2s ease-out;
+  transform-origin: center center; // makes it zoom from middle
+
+  .modal-body-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 8px;
+    height: 100%;
+  }
+}

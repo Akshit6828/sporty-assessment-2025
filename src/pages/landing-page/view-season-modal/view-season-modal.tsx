@@ -26,9 +26,7 @@ export default function ViewSeasonModal({
     <Modal
       isOpen={showModal}
       onClose={() => setShowModal(!showModal)}
-      modalClass={"season-modal-container"}
-      // modalBackgroundColor="black"
-      // overLaybackgroundColor="rgba(0, 0, 0, 0.8)"
+      modalClass={`season-modal-container ${showModal ? "zoom-in" : ""}`}
     >
       {isLoading && <Loader />}
       {!isLoading && (
@@ -38,7 +36,7 @@ export default function ViewSeasonModal({
               className="season-img"
               width={300}
               height={300}
-              src={seasonImg}
+              src={"seasonImg"}
               alt="season-img"
             />
             <div className="season-details-container">
