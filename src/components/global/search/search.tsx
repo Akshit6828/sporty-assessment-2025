@@ -23,6 +23,7 @@ export default function Search({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         width={width}
+        autoComplete="off"
       />
       <span className="search-icon">
         <img
