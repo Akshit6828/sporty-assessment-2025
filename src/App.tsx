@@ -1,36 +1,11 @@
-import { useEffect, useState } from "react";
 import "./App.scss";
 import NoInternet from "./components/global/no-internet/no-internet";
+import useOnlineStatus from "./hooks/useOnlineStatus";
 
 function App() {
-  const [isOnline, setIsOnline] = useState(window.navigator.onLine);
-  const [warningmessage, setWarningMessage] = useState(
-    "Please check your internet connection"
-  );
+  const [isOnline, warningMessage] = useOnlineStatus();
 
-  useEffect(() => {
-    function handleOnline() {
-      setIsOnline(false);
-      setWarningMessage("Updating Page, Please wait");
-      setTimeout(() => {
-        window.location.reload();
-      }, 50);
-    }
-
-    function handleOffline() {
-      setIsOnline(false);
-    }
-
-    window.addEventListener("online", handleOnline);
-    window.addEventListener("offline", handleOffline);
-
-    return () => {
-      window.removeEventListener("online", handleOnline);
-      window.removeEventListener("offline", handleOffline);
-    };
-  }, []);
-
-  return <>{!isOnline && <NoInternet />} </>;
+  return <>{!isOnline && <NoInternet warningMessage={warningMessage} />} </>;
 }
 
 export default App;

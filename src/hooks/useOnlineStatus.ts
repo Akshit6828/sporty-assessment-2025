@@ -2,18 +2,23 @@ import { useEffect, useState } from "react";
 
 function useOnlineStatus() {
   const [isOnline, setIsOnline] = useState(window.navigator.onLine);
+  const [warningmessage, setWarningMessage] = useState(
+    "Seems Like you are offline. Please check your internet connection"
+  );
 
   useEffect(() => {
-    const handleOffline = () => {
+    function handleOnline() {
       setIsOnline(false);
+      setWarningMessage("Updating page, Please wait a moment...");
       setTimeout(() => {
         window.location.reload();
       }, 50);
-    };
+    }
 
-    const handleOnline = () => {
-      setIsOnline(true);
-    };
+    function handleOffline() {
+      setIsOnline(false);
+    }
+
     window.addEventListener("online", handleOnline);
     window.addEventListener("offline", handleOffline);
 
@@ -23,7 +28,7 @@ function useOnlineStatus() {
     };
   }, []);
 
-  return isOnline;
+  return [isOnline, warningmessage];
 }
 
 export default useOnlineStatus;

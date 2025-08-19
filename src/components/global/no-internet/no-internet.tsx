@@ -1,12 +1,9 @@
 import "./no-internet.scss";
 
-export default function NoInternet() {
+export default function NoInternet(props: any) {
   return (
     <div className="no-internet-container">
-      <h3 className="ni-data-text">
-        Opps! Seem Like You Are Offline! Please check your internet and try
-        again
-      </h3>
+      <h3 className="ni-data-text">{props.warningMessage}</h3>
     </div>
   );
 }
