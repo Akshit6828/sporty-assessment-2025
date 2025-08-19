@@ -26,6 +26,9 @@ cd sporty-assessment-2025
 npm install
 npm run dev
 ```
+## Assignment and Code Walkthrought:
+[Watch Video and Code Walkthrough](https://drive.google.com/file/d/1Fgp0Q8JCRx_fuCVwzZ0cbvFVQBU3VGrP/view?usp=sharing)
+
 
 ## Project Screenshots:
 
