@@ -22,7 +22,7 @@ A React + TypeScript web app to explore sports leagues and tournaments using the
 
 ```bash
 git clone <repository-url>
-cd sporty-league
+cd sporty-assessment-2025
 npm install
 npm run dev
 ```
