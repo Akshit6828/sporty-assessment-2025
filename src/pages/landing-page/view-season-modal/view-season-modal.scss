@@ -78,6 +78,7 @@
       border-radius: 4px;
       border: 1px solid var(--primary);
       cursor: pointer;
+      min-height: 30px;
       width: 100%;
     }
     .modal-close-button:hover {
@@ -112,5 +113,28 @@
     justify-content: space-between;
     gap: 8px;
     height: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .modal {
+    &.season-modal-container {
+      margin: 0px 12px;
+      min-width: 0px;
+      .modal-body-container {
+        padding: 0px 12px;
+        .img-league-container {
+          .season-img {
+            width: 100%;
+            min-width: none;
+          }
+        }
+      }
+      .modal-close-container {
+        .modal-close-button {
+          min-height: 40px;
+        }
+      }
+    }
   }
 }

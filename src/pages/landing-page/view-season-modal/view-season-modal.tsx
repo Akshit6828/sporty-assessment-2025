@@ -36,7 +36,7 @@ export default function ViewSeasonModal({
               className="season-img"
               width={300}
               height={300}
-              src={"seasonImg"}
+              src={seasonImg}
               alt="season-img"
             />
             <div className="season-details-container">
