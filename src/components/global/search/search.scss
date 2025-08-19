@@ -38,3 +38,13 @@
     }
   }
 }
+
+@media screen and (max-width: 900px) {
+  .search-container {
+    min-width: 100%;
+    .custom-search {
+      max-width: none;
+      min-width: 100%;
+    }
+  }
+}
